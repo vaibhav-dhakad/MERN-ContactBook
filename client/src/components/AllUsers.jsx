@@ -4,7 +4,6 @@ import {
   Table,
   TableHead,
   TableCell,
-  Paper,
   TableRow,
   TableBody,
   Button,
@@ -12,6 +11,7 @@ import {
 } from "@mui/material";
 import { getUsers, deleteUser } from "../Service/api";
 import { Link } from "react-router-dom";
+import jsPDF from "jspdf";
 
 const StyledTable = styled(Table)`
   width: 90%;
@@ -32,6 +32,8 @@ const TRow = styled(TableRow)`
   }
 `;
 
+////////////////////////////////////////////////
+
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
 
@@ -48,6 +50,28 @@ const AllUsers = () => {
     let response = await getUsers();
     setUsers(response.data);
   };
+
+  ////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+
+  const GeneratePDF = () => {
+    const doc = new jsPDF();
+    let y = 10;
+    doc.text("##ContactBook##", 10, y);
+    doc.text("##############", 10, y + 10);
+    users.forEach((item) => {
+      doc.text(`Name: ${item.name}`, 10, y + 20);
+      doc.text(`UserName: ${item.username}`, 10, y + 30);
+      doc.text(`Email: ${item.email}`, 10, y + 40);
+      doc.text(`Phone: ${item.phone}`, 10, y + 50);
+      doc.text("==============================", 10, y + 60);
+      y += 60;
+    });
+    doc.save("ContactBook.pdf");
+  };
+
+  ///////////////////////////////////////////////
+  ///////////////////////////////////////////////
 
   return (
     <>
@@ -72,6 +96,7 @@ const AllUsers = () => {
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.phone}</TableCell>
               <TableCell>
+                {/* ///////////////////// */}
                 <Button
                   color="primary"
                   variant="contained"
@@ -80,7 +105,7 @@ const AllUsers = () => {
                   to={`/edit/${user._id}`}
                 >
                   Edit
-                </Button>{" "}
+                </Button>
                 {/* change it to user.id to use JSON Server */}
                 <Button
                   color="secondary"
@@ -88,12 +113,26 @@ const AllUsers = () => {
                   onClick={() => DeleteUserDetails(user._id)}
                 >
                   Delete
-                </Button>{" "}
-                {/* change it to user.id to use JSON Server */}
+                </Button>
               </TableCell>
             </TRow>
           ))}
         </TableBody>
+
+        {/* /////////////////////////////// */}
+
+        <Button
+          color="inherit"
+          variant="contained"
+          onClick={GeneratePDF}
+          style={{
+            // display: "block",
+            margin: "20px auto 0 auto",
+            backgroundColor: "yellow",
+          }}
+        >
+          Generate pdf
+        </Button>
       </StyledTable>
     </>
   );

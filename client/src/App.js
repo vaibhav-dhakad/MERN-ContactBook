@@ -4,10 +4,10 @@ import AllUsers from './components/AllUsers';
 import ContactBook from './components/ContactBook';
 import EditUser from './components/EditUser';
 import Login from './components/Login';
-
-
-import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import SignUp from './components/SignUp';
+import {BrowserRouter,Routes,Route} from 'react-router-dom';
+
+
 
 function App() {
   return (
