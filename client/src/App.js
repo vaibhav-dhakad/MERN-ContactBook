@@ -3,19 +3,23 @@ import AddUser from './components/AddUser';
 import AllUsers from './components/AllUsers';
 import ContactBook from './components/ContactBook';
 import EditUser from './components/EditUser';
-import NavBar from './components/NavBar';
+import Login from './components/Login';
+
 
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
+import SignUp from './components/SignUp';
 
 function App() {
   return (
+  
     <BrowserRouter>
-    <NavBar/>
         <Routes>
-          <Route path='/' element ={<ContactBook/>} />
+          <Route path='/homepage' element ={<ContactBook/>} />
           <Route path='/all' element ={<AllUsers/>} />
           <Route path='/add' element ={<AddUser/>} />
           <Route path='/edit/:id' element ={<EditUser/>} />
+          <Route path='/' element ={<Login/>} />
+          <Route path='/signup' element ={<SignUp/>} />
         </Routes>
     </BrowserRouter>
   );

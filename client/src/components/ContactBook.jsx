@@ -1,12 +1,13 @@
-import React from 'react';
-
+import React from "react";
+import NavBar from "./NavBar";
 
 function ContactBook(props) {
-    return (
-        <div>
-            <h2>Made By Prateek</h2>
-        </div>
-    );
+  return (
+    <div>
+      <NavBar />
+      <h2>Made By Prateek</h2>
+    </div>
+  );
 }
 
 export default ContactBook;

@@ -1,3 +1,4 @@
+
 import User from "../schema/user-schema.js";
 
 
@@ -52,3 +53,6 @@ export const deleteUser = async(req,res)=>{
     res.status(404).json({message: error.message});
   }
 }
+
+
+//////////////////////////////////////////////////

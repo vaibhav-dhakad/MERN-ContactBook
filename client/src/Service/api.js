@@ -43,3 +43,26 @@ export const deleteUser = async(id) =>{
     console.log("Error while calling getUser api",error);
   }
 }
+
+
+
+////////////////////////////////////////////////////////////////
+
+export const signupUser = async(data) =>{
+   try {
+    return await axios.post(`${URL}/signup`,data);
+    
+   } catch (error) {
+    console.log("Error while calling signupUser api",error);
+   }
+}
+
+
+export const loginUser = async(data) =>{
+   try {
+    return await axios.post(`${URL}/login`,data);
+    
+   } catch (error) {
+    console.log("Error while calling signupUser api",error);
+   }
+}
