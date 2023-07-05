@@ -32,9 +32,7 @@ function Login(props) {
     const response = await loginUser(Values);
     if (response.data.msg === "ok") {
       alert("SuccessFully Login");
-      const { token } = response.data;
-      document.cookie = `token=${token}; Secure; SameSite=Strict`;
-      // history.push("/homepage");
+
       navigate("/homepage");
     } else {
       alert(response.data.msg);

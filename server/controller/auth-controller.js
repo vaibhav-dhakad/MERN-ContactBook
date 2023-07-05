@@ -1,76 +1,66 @@
-import UserModel from "../schema/UserModel.js";
+import AuthUserModel from "../schema/authuser-schema.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const maxAge = 3*24*60*60;
-
-const createToken = (id)=>{
-   return jwt.sign({id},"Hellomynameisprateek321123",{expiresIn: maxAge});
-}
-
+const createToken = (id) => {
+  return jwt.sign({ id }, "Hellomynameisprateek321123", { expiresIn: "3d" });
+};
 
 //////////////////////////////////////////////////////////
 
-export const signup = async(req,res)=>{
-
+export const signup = async (req, res) => {
   try {
-  const {name,email,password} = req.body;
+    const { name, email, password } = req.body;
 
-   if(!name || !email || !password){
-            return res.send({msg: "Fill all option before signup"});
-        }
+    if (!name || !email || !password) {
+      return res.send({ msg: "Fill all option before signup" });
+    }
 
-   const oldUser =  await UserModel.findOne({email});
-        if(oldUser){
-            return res.send({msg: "User Exists"});
-        }
+    const oldUser = await AuthUserModel.findOne({ email });
+    if (oldUser) {
+      return res.send({ msg: "User Exists" });
+    }
 
-   const encrytedPassword = await bcrypt.hash(password,10);
-    
-   const user = await UserModel.create({name , email, password :encrytedPassword});
+    const encrytedPassword = await bcrypt.hash(password, 10);
 
-         const token = createToken(user._id);
-        //  res.cookie("jwt",token,{ withCredentials: true,httpOnly:true});
+    const user = await AuthUserModel.create({
+      name,
+      email,
+      password: encrytedPassword,
+    });
 
-   res.status(201).json({msg: "User SuccessFully SignUp"});
-        
+    const token = createToken(user._id);
+
+    res.status(200).json({ msg: "User SuccessFully SignUp", email, token });
   } catch (error) {
-    res.status(409).json({msg: error.message});
+    res.status(400).json({ msg: error.message });
   }
-}
-
+};
 
 ////////////////////////////////////////////////////
 
-export const login = async(req,res)=>{
-  const {email,password} = req.body;
+export const login = async (req, res) => {
+  const { email, password } = req.body;
 
-    try {
+  try {
+    if (!email || !password) {
+      return res.send({ msg: "Fill all option before login" });
+    }
 
-        if(!email || !password){
-            return res.send({msg: "Fill all option before login"});
-        }
+    const User = await AuthUserModel.findOne({ email });
 
-        const User =  await UserModel.findOne({email});
+    if (!User) {
+      return res.send({ msg: "User Doesn't Found" });
+    }
 
-        if(!User){
-            return res.json({msg: "User Doesn't Found"});
-        }
+    if (await bcrypt.compare(password, User.password)) {
+      const token = createToken(User._id);
 
-        if(await bcrypt.compare(password,User.password)){
-            const token = jwt.sign({userId : User._id},"Hellomynameisprateek321123" , { expiresIn: '1h' });
-
-            //  res.cookie('token', token, { httpOnly: true });
-
-            if(res.status(201)){
-                return res.json({msg: "ok"});
-            }else{
-                return res.json({msg: "error"});
-            }
-        }
-
-        res.json({msg:"Invalid Password"});
+      res.status(200).json({ email, token });
+    } else {
+      res.send({ msg: "Invalid Password" });
+    }
   } catch (error) {
-    res.status(409).json({message: error.message});
+    res.status(400).json({ message: error.message });
   }
-}
+};
