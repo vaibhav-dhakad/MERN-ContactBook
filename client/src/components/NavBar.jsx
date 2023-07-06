@@ -28,6 +28,7 @@ function NavBar(props) {
               backgroundColor: "red",
               marginLeft: "50px",
             }}
+            onClick={()=>localStorage.removeItem('token')}
           >
             LogOut
           </Button>
