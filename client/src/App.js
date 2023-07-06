@@ -5,6 +5,7 @@ import ContactBook from './components/ContactBook';
 import EditUser from './components/EditUser';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
+import Conditional from './components/Conditional';
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 
 
@@ -14,10 +15,12 @@ function App() {
   
     <BrowserRouter>
         <Routes>
+        <Route  element={<Conditional/>}>
           <Route path='/homepage' element ={<ContactBook/>} />
           <Route path='/all' element ={<AllUsers/>} />
           <Route path='/add' element ={<AddUser/>} />
           <Route path='/edit/:id' element ={<EditUser/>} />
+          </Route>
           <Route path='/' element ={<Login/>} />
           <Route path='/signup' element ={<SignUp/>} />
         </Routes>

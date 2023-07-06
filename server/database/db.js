@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 
 const Connection = async() => {
-    const URL = "mongodb+srv://vaibhav:vaibhav@contactbook.8jkkeh2.mongodb.net/?retryWrites=true&w=majority";
+    const URL = < URI > ;
 
     // mongodb://prateek:prateek@ac-zkdwrfm-shard-00-00.gyotwft.mongodb.net:27017,ac-zkdwrfm-shard-00-01.gyotwft.mongodb.net:27017,ac-zkdwrfm-shard-00-02.gyotwft.mongodb.net:27017/?ssl=true&replicaSet=atlas-9itawf-shard-0&authSource=admin&retryWrites=true&w=majority';
     try {
