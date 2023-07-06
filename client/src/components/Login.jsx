@@ -35,13 +35,13 @@ function Login(props) {
     
       const response = await loginUser(Values);
       console.log(response);
-      if (response.statusText === 'OK') {
+      if (response.data.msg ==="User SuccessFully SignUp" ) {
         localStorage.setItem("token", response.data.token);
         console.log(response.data.token);
         navigate("/homepage");
       } 
       else{
-        console.log('wrong Credentials')
+    alert('Enter correct credentials')
       }
     } catch (error) {
       console.log(error)

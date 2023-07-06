@@ -34,7 +34,7 @@ export const signup = async(req, res) => {
 
         res.status(200).json({ msg: "User SuccessFully SignUp", email, token });
     } catch (error) {
-        res.status(400).json({ msg: error.message });
+        res.status(400).json({ msg: "Nope" });
     }
 };
 

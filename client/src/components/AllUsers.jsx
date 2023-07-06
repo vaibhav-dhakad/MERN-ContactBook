@@ -48,6 +48,7 @@ const token = localStorage.getItem("token");
 
   const getAllUsers = async () => {
     let response = await getUsers(token );
+    console.log(response)
     setUsers(response.data);
   };
 
@@ -88,13 +89,13 @@ const token = localStorage.getItem("token");
           </THead>
         </TableHead>
         <TableBody>
-          {users.map((user) => (
-            <TRow key={user.id}>
-              <TableCell>{user._id}</TableCell>
-              <TableCell>{user.name}</TableCell>
-              <TableCell>{user.username}</TableCell>
-              <TableCell>{user.email}</TableCell>
-              <TableCell>{user.phone}</TableCell>
+          {users?.map((user) => (
+            <TRow key={user?.id}>
+              <TableCell>{user?._id}</TableCell>
+              <TableCell>{user?.name}</TableCell>
+              <TableCell>{user?.username}</TableCell>
+              <TableCell>{user?.email}</TableCell>
+              <TableCell>{user?.phone}</TableCell>
               <TableCell>
                 {/* ///////////////////// */}
                 <Button
