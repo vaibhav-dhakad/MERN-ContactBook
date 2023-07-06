@@ -29,14 +29,26 @@ function Login(props) {
   };
 
   const handleClick = async () => {
-    const response = await loginUser(Values);
-    if (response.data.msg === "ok") {
-      alert("SuccessFully Login");
+    
+    try {
+      // e.preventDefault();
+    
+      const response = await loginUser(Values);
+      console.log(response);
+      if (response.statusText === 'OK') {
+        localStorage.setItem("token", response.data.token);
+        console.log(response.data.token);
+        navigate("/homepage");
+      } 
+      else{
+        console.log('wrong Credentials')
+      }
+    } catch (error) {
+      console.log(error)
+      console.log("none")
 
-      navigate("/homepage");
-    } else {
-      alert(response.data.msg);
     }
+
   };
 
   return (

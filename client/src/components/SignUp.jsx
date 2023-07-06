@@ -36,8 +36,9 @@ function SignUp(props) {
 
   const handleClick = async () => {
     const response = await signupUser(Values);
-    alert(response.data.msg);
+    // console.log(response.data.token)
     if (response.data.msg === "User SuccessFully SignUp") {
+    localStorage.setItem("token", response.data.token);
       navigate("/");
     }
   };
